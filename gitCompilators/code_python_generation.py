@@ -98,7 +98,7 @@ def visit(ctx, ast):
         visit(ctx, y)
         ctx.tokens.append(')') 
 
-     elif ast.sub:
+    elif ast.sub:
         x, y = ast.sub_args
         ctx.tokens.append('(')
         visit(ctx, x)
@@ -158,17 +158,18 @@ def visit(ctx, ast):
             x = ast.notop_args
             ctx.tokens.append(' not ')
             visit(ctx, x)
-
+    
     elif ast.nameattrib:
         x, y = ast.nameattrib_args
         ctx.tokens.append(x)
         ctx.tokens.append(' = ')
-        visit(ctx, y)    
+        visit(ctx, y)
 
     elif ast.block:
         block = ast.block_args[0]
         if not block:
-            block.append(Name('pass'))        
+            block.append(Name('pass'))
+
         for node in block:
             ctx.tokens.append('    ' * ctx.indent)
             visit(ctx, node)
